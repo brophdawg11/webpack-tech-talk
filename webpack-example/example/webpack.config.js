@@ -1,48 +1,58 @@
-// Demo Agenda:
-//  - Zero-config
-//  - development mode -> bundled file
-//  - Enable babel-loader to show transformed code
-//     - Remove prior to tree shaking
-//  - Load images via file loader, then via url-loader
-//  - Move styles into imports, convert to SCSS
-//  - Show html-webpack-plugin
-//  - Show Visualizer Plugin
-//  - Show tree shaking
-//  - Show dynamic imports
-//  - Show hot reloading
-//  - Show aliases?
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const Visualizer = require('webpack-visualizer-plugin');
 
 module.exports = {
     mode: 'development',
-    devtool: 'source-map', // false,
-    stats: 'verbose',
+    entry: './src/index.js',
+    output: {
+        path: `${__dirname}/dist`,
+        //publicPath: '/dist/',
+        filename: '[name].js',
+    },
+    devtool: 'source-map',
     module: {
         rules: [{
-            test: /.js$/,
+            test: /\.js$/,
             loader: 'babel-loader',
             options: {
-                presets: [ 'env' ],
+                presets: [[ 'env', { modules: false } ]],
                 plugins: [ 'dynamic-import-webpack' ],
             },
         }, {
-            test: /.css$/,
+            test: /\.css$/,
             use: [
-                'style-loader/url',
-                'file-loader'
+                'style-loader',
+                'css-loader',
+
+                // 'style-loader/url',
+                // 'file-loader',
+
+                // MiniCssExtractPlugin.loader,
+                // 'css-loader',
             ],
         }, {
-            test: /.gif$/,
-            // loader: 'file-loader',
-            loader: 'url-loader',
+            test: /\.scss$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                'sass-loader',
+            ],
+        }, {
+            test: /\.gif$/,
+            // loader: 'url-loader',
+            // options: {
+            //     limit: 1000000,
+            //     name: '[name].[hash].[ext]',
+            // },
+            loader: 'file-loader',
             options: {
-                limit: 1000000,
+                name: '[name].[hash].[ext]',
             },
         }],
     },
     plugins: [
+        // new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             template: './index.html'
         }),
@@ -51,8 +61,6 @@ module.exports = {
     devServer: {
         index: 'index.html',
         inline: true,
-        hot: true,
-        hotOnly: true,
         contentBase: `${__dirname}/dist`,
         publicPath: '/',
         port: 8000,

@@ -1,8 +1,10 @@
+$width: 100px;
+
 .spin {
-    width: 100px;
+    width: $width;
     border-radius: 50%;
     animation-name: spin;
-    animation-duration: 4000ms;
+    animation-duration: 40000ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }

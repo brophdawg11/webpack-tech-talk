@@ -1,17 +1,19 @@
-import './styles/main.css';
-
-import { loadSpinner, clearSpinners } from './js/spinner.js';
+import styles from './styles/main.css';
 
 const leftBtn = document.querySelector('#load-left')
 const clearBtn = document.querySelector('#clear')
 const rightBtn = document.querySelector('#load-right')
 
 function loadLeftSpinner() {
-    loadSpinner('left', 'cat');
+    import('./js/spinner.js').then(m => m.loadSpinner('left', 'cat'));
 }
 
 function loadRightSpinner() {
-    loadSpinner('right', 'dog');
+    import('./js/spinner.js').then(m => m.loadSpinner('right', 'dog'));
+}
+
+function clearSpinners() {
+    import('./js/spinner.js').then(m => m.clearSpinners());
 }
 
 leftBtn.addEventListener('click', loadLeftSpinner);
@@ -22,9 +24,9 @@ console.log('App initialized!');
 
 if (module.hot) {
     module.hot.dispose(() => {
-        leftBtn.removeEventListener('click', loadHelloWorld);
-        document.querySelector('#load-left-spinner').removeEventListener('click', loadLeftSpinner);
-        document.querySelector('#load-right-spinner').removeEventListener('click', loadRightSpinner);
+        leftBtn.removeEventListener('click', loadLeftSpinner);
+        clearBtn.removeEventListener('click', clearSpinners);
+        rightBtn.removeEventListener('click', loadRightSpinner);
     });
     module.hot.accept();
 }
