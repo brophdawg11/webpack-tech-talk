@@ -1,5 +1,3 @@
-import './styles/main.css';
-
 import { loadSpinner, clearSpinners } from './js/spinner.js';
 
 const leftBtn = document.querySelector('#load-left')

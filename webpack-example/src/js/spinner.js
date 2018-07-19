@@ -1,7 +1,5 @@
-import '../styles/spinner.css';
-
-import cat from '../images/cat.gif';
-import dog from '../images/dog.gif';
+const cat = '/src/images/cat.gif';
+const dog = '/src/images/dog.gif';
 
 export function loadSpinner(position, type) {
     const img = document.createElement('img');

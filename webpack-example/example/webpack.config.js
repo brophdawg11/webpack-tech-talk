@@ -4,7 +4,7 @@
 //  - Enable babel-loader to show transformed code
 //     - Remove prior to tree shaking
 //  - Load images via file loader, then via url-loader
-//  - Move styles into imports
+//  - Move styles into imports, convert to SCSS
 //  - Show html-webpack-plugin
 //  - Show Visualizer Plugin
 //  - Show tree shaking
@@ -58,7 +58,3 @@ module.exports = {
         port: 8000,
     },
 };
-
-
-
-
